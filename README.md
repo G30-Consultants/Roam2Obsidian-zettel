@@ -1,32 +1,21 @@
-# Roam JSON To Obsidian Converter
+# Roam JSON To Zettel Notes
 
-This is a forked repository from [renerocksai/rj2obs](https://github.com/renerocksai/rj2obs) with few more **additional features**:
+This is a forked repository from [renerocksai/rj2obs](https://github.com/renerocksai/rj2obs) with few more **additional features** and then forked again from GanguLabs/Roam2Obsidian:main. to be used as the core for converting Roam JSON to Zettel Notes:
 
-* Convert code-blocks into proper markdown code-blocks
-* enclose any html tags in backtics so that they are not rendered by obsidian - eg: `` `<br>` ``
-* replace any underscore(`_`) in the UID of a block with hyphen(-) as obsidian doesn't support "`_`" in UID
-* Preview Block-Refs by default
-    * I have a custom CSS snippet for my Obsidian vault, that style the block-refs to look similar to Roam Research
+* Generate HTML and Text Summary and Note bodies. 
 ___
 
-Converts Roam JSON export to Obsidian Markdown files.
+Converts Roam JSON export to Zettel Notes.
 
-I wrote this to convert my own roam export into an Obsidian friendly format.
 
-Output has the following directory structure:
-
-* `md/` : contains all normal Markdown files
-* `md/daily/`: contains all daily notes
-
+Output is a regular set of Zettel Notes in a specified Kasten path with references maintained but also converted to Zettel links. 
 ### Features:
 
 * Daily note format is changed to YYYY-MM-DD
-* roam's block IDs are appended (only) to blocks actually referenced
-    * e.g. `* this block gets referenced  ^someroamid`
-* Blockrefs, block mentions, block embeds are replaced by their content with an appended Obsidian blockref link
-    * e.g. `this block gets referenced  [[orignote#^someblockid]]`
-* All notes are prefixed with a yaml header containing title and creation date:
-```yaml
+* roam's block IDs are appended (only) to blocks actually referenced and converted to Zettel anchor links.
+* Blockrefs, block mentions, block embeds are used to build the Reference side of the note, including embeds which are thumbnailed
+* The Zettel schema is used as the default, including creation datetime and title.
+* 
 ---
 title:   
 created: YYYY-MM-DD
@@ -34,27 +23,9 @@ created: YYYY-MM-DD
 
 ```
 
-* Top level roam blocks that don't contain children are not formatted as list
-* Roam blocks containing linebreaks are broken down into multiple bullets
-    * roam: 
-```markdown
+* Top level roam blocks that don't contain children are not created as notes.
 
-        * line 1
-          line 2
-        * next block
 ```
-*
-    * becomes:
-```markdown
-        * line 1
-        * line 2
-
-        * next block
-```
-
-**Note:** Please run Obsidian's Markdown importer after this conversion. It will fix #tag links and formattings (todo syntax, highlights, etc).
-
-I might make it more user friendly and less hardcoded later. It did the job, though.
 
 # Install
 No need to install. But you need python3. Google is your friend. 
